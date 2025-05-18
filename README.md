@@ -56,5 +56,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Contact 📧
 Anurag Mahanta - anuragmahanta730@gmail.com
 
-Project Link: https://github.com/ANURAGGGGGGGGGGGG/portfolio
-
+Project Link: https://anuragggggggggggg.github.io/personal-portfolio/
