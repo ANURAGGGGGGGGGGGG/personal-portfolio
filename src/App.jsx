@@ -9,41 +9,47 @@ import Footer from './components/Footer';
 
 function App() {
   useEffect(() => {
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+    const anchors = document.querySelectorAll('a[href^="#"]');
+    
+    anchors.forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
         e.preventDefault();
-        
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
+
+        const targetId = e.currentTarget.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
       });
     });
-    
-    // Active nav items on scroll
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const id = entry.target.getAttribute('id');
-        if (entry.intersectionRatio > 0) {
+        if (entry.isIntersecting) {
           document.querySelectorAll('.nav-link').forEach(navLink => {
             navLink.classList.remove('active');
           });
-          const activeNavLink = document.querySelector(`.nav-link[href="#${id}"]`);
-          if (activeNavLink) {
-            activeNavLink.classList.add('active');
+
+          const activeNav = document.querySelector(`.nav-link[href="#${id}"]`);
+          if (activeNav) {
+            activeNav.classList.add('active');
           }
         }
       });
-    }, { rootMargin: '-50% 0px -50% 0px' });
-    
-    // Track all sections that have an ID defined
-    document.querySelectorAll('section[id]').forEach((section) => {
-      observer.observe(section);
+    }, {
+      rootMargin: '-50% 0px -50% 0px', 
     });
 
+    const sections = document.querySelectorAll('section[id]');
+    sections.forEach(section => observer.observe(section));
+
     return () => {
-      // Clean up observers when component unmounts
       observer.disconnect();
+      anchors.forEach(anchor => {
+        anchor.removeEventListener('click', () => {});
+      });
     };
   }, []);
 
