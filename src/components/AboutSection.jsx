@@ -17,7 +17,7 @@ const AboutSection = () => {
                 height: '320px',
                 objectFit: 'cover',
                 objectPosition: 'center top',
-                marginTop: '-50px' // Adjust this value to move image up/down
+                marginTop: '-50px'
               }}
             />
           </div>
